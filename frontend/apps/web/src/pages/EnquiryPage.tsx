@@ -4,13 +4,13 @@ import { useAuth } from '@repo/auth'
 import { Button, Input, Label } from '@repo/ui'
 import {
   enquiryInsert,
-  fetchBusiness,
+  fetchSiteConfig,
   fetchVehicle,
   sendEnquiry,
   vehicleRate,
   whatsappHref,
-  FALLBACK_BUSINESS,
-  type Business,
+  FALLBACK_SITE_CONFIG,
+  type SiteConfig,
   type Vehicle,
 } from '../lib/catalog'
 import {
@@ -28,7 +28,7 @@ export function EnquiryPage() {
   const { user } = useAuth()
   const [trip] = useState(loadTrip)
   const [vehicle, setVehicle] = useState<Vehicle | null>(null)
-  const [business, setBusiness] = useState<Business>(FALLBACK_BUSINESS)
+  const [config, setConfig] = useState<SiteConfig>(FALLBACK_SITE_CONFIG)
   const [name, setName] = useState<string | null>(null)
   const [phone, setPhone] = useState('')
   const [note, setNote] = useState('')
@@ -43,11 +43,11 @@ export function EnquiryPage() {
 
   useEffect(() => {
     let cancelled = false
-    void Promise.all([fetchVehicle(vehicleId), fetchBusiness()])
-      .then(([row, desk]) => {
+    void Promise.all([fetchVehicle(vehicleId), fetchSiteConfig()])
+      .then(([row, site]) => {
         if (cancelled) return
         setVehicle(row)
-        setBusiness(desk)
+        setConfig(site)
       })
       .catch(() => {
         if (!cancelled) setError('This enquiry could not be opened.')
@@ -109,7 +109,7 @@ export function EnquiryPage() {
           deliveryAddress,
         }),
       )
-      const href = whatsappHref(business.whatsapp_digits, message)
+      const href = whatsappHref(config.whatsappPhone, message)
       setSentHref(href)
       window.open(href, '_blank', 'noopener,noreferrer')
     } catch {

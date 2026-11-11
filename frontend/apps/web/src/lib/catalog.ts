@@ -14,6 +14,28 @@ export type VehiclePhoto = Database['public']['Tables']['vehicle_photos']['Row']
 export type Enquiry = Database['public']['Tables']['enquiries']['Row']
 type EnquiryInsert = Database['public']['Tables']['enquiries']['Insert']
 
+export const FALLBACK_SITE_CONFIG = {
+  whatsappPhone: '919800000000',
+  phoneDisplay: '98000 00000',
+}
+
+export type SiteConfig = typeof FALLBACK_SITE_CONFIG
+
+export async function fetchSiteConfig(): Promise<SiteConfig> {
+  try {
+    const supabase = getSupabaseClient()
+    const { data, error } = await supabase.from('configurations').select('key, value')
+    if (error || !data) return FALLBACK_SITE_CONFIG
+    const values = Object.fromEntries(data.map((row) => [row.key, row.value]))
+    return {
+      whatsappPhone: values.whatsapp_phone || FALLBACK_SITE_CONFIG.whatsappPhone,
+      phoneDisplay: values.phone_display || FALLBACK_SITE_CONFIG.phoneDisplay,
+    }
+  } catch {
+    return FALLBACK_SITE_CONFIG
+  }
+}
+
 export const FALLBACK_BUSINESS: Business = {
   id: 1,
   trading_name: 'Sunil Travels',

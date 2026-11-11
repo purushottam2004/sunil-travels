@@ -25,6 +25,35 @@ export type TripDraft =
 
 const KINDS: HireKind[] = ['self_drive', 'airport', 'local', 'outstation']
 
+function pad(value: number) {
+  return String(value).padStart(2, '0')
+}
+
+function toDateTimeLocal(date: Date) {
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`
+}
+
+/** Pickup is the moment the page loads. Return stays later on that same calendar day. */
+export function defaultSelfDriveWindow(now = new Date()) {
+  const pickup = new Date(now)
+  pickup.setSeconds(0, 0)
+  const ret = new Date(pickup)
+  ret.setHours(pickup.getHours() + 6)
+  const sameDay =
+    ret.getFullYear() === pickup.getFullYear() &&
+    ret.getMonth() === pickup.getMonth() &&
+    ret.getDate() === pickup.getDate()
+  if (!sameDay) {
+    ret.setTime(pickup.getTime())
+    ret.setHours(23, 59, 0, 0)
+    if (ret <= pickup) ret.setTime(pickup.getTime() + 60 * 60 * 1000)
+  }
+  return {
+    pickupAt: toDateTimeLocal(pickup),
+    returnAt: toDateTimeLocal(ret),
+  }
+}
+
 export function saveTrip(trip: TripDraft) {
   sessionStorage.setItem(STORAGE_KEY, JSON.stringify(trip))
 }

@@ -88,6 +88,21 @@ export type Database = {
         }
         Relationships: []
       }
+      configurations: {
+        Row: {
+          key: string
+          value: string
+        }
+        Insert: {
+          key: string
+          value: string
+        }
+        Update: {
+          key?: string
+          value?: string
+        }
+        Relationships: []
+      }
       vehicles: {
         Row: {
           blurb: string

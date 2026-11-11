@@ -2,6 +2,7 @@ import { useState, type FormEvent, type ReactNode } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button, Input, Label } from '@repo/ui'
 import {
+  defaultSelfDriveWindow,
   saveTrip,
   validateSchedule,
   type AirportDirection,
@@ -16,12 +17,13 @@ export function HireForm({ initial }: { initial?: TripDraft | null }) {
   const [chauffeurKind, setChauffeurKind] = useState<'airport' | 'local' | 'outstation'>(
     initial && initial.kind !== 'self_drive' ? initial.kind : 'airport',
   )
-  const [pickupAt, setPickupAt] = useState(
-    initial?.kind === 'self_drive' ? initial.pickupAt : '',
+  const [times] = useState(() =>
+    initial?.kind === 'self_drive'
+      ? { pickupAt: initial.pickupAt, returnAt: initial.returnAt }
+      : defaultSelfDriveWindow(),
   )
-  const [returnAt, setReturnAt] = useState(
-    initial?.kind === 'self_drive' ? initial.returnAt : '',
-  )
+  const [pickupAt, setPickupAt] = useState(times.pickupAt)
+  const [returnAt, setReturnAt] = useState(times.returnAt)
   const [direction, setDirection] = useState<AirportDirection>(
     initial?.kind === 'airport' ? initial.direction : 'to_airport',
   )

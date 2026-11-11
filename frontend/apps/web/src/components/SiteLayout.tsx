@@ -1,15 +1,18 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, Outlet } from 'react-router-dom'
 import { useAuth } from '@repo/auth'
-import { fetchBusiness, whatsappHref, type Business, FALLBACK_BUSINESS } from '../lib/catalog'
+import { fetchBusiness, fetchSiteConfig, whatsappHref, type Business, FALLBACK_BUSINESS, FALLBACK_SITE_CONFIG, type SiteConfig } from '../lib/catalog'
 
 export function SiteLayout() {
   const [business, setBusiness] = useState<Business>(FALLBACK_BUSINESS)
+  const [config, setConfig] = useState<SiteConfig>(FALLBACK_SITE_CONFIG)
 
   useEffect(() => {
     let cancelled = false
-    void fetchBusiness().then((row) => {
-      if (!cancelled) setBusiness(row)
+    void Promise.all([fetchBusiness(), fetchSiteConfig()]).then(([row, site]) => {
+      if (cancelled) return
+      setBusiness(row)
+      setConfig(site)
     })
     return () => {
       cancelled = true
@@ -20,7 +23,7 @@ export function SiteLayout() {
     <div className="sunil">
       <SiteHeader name={business.trading_name} />
       <Outlet />
-      <SiteFooter business={business} />
+      <SiteFooter business={business} config={config} />
     </div>
   )
 }
@@ -85,13 +88,19 @@ function SiteHeader({ name }: { name: string }) {
   )
 }
 
-function SiteFooter({ business }: { business: Business }) {
+function SiteFooter({
+  business,
+  config,
+}: {
+  business: Business
+  config: SiteConfig
+}) {
   return (
     <footer className="sunil-footer">
       <p>
-        <a href={`tel:+${business.whatsapp_digits}`}>{business.phone_display}</a>
+        <a href={`tel:+${config.whatsappPhone}`}>{config.phoneDisplay}</a>
         <span aria-hidden="true"> · </span>
-        <a href={whatsappHref(business.whatsapp_digits)} target="_blank" rel="noreferrer">
+        <a href={whatsappHref(config.whatsappPhone)} target="_blank" rel="noreferrer">
           WhatsApp
         </a>
       </p>
