@@ -23,6 +23,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from python_seeds.data._002_data_assets import LOGIN_PHOTO_OBJECT, SEED_ASSETS_BUCKET
+from python_seeds.data._003_data_vehicles import VEHICLE_PHOTOS_BUCKET
 
 
 class Colors:
@@ -71,6 +72,44 @@ def wipe_users(supabase) -> None:
     print_success(f"public.users: wiped {total} user(s)")
 
 
+def wipe_enquiries(supabase) -> None:
+    print_info("Wiping public.enquiries")
+    total = 0
+    while True:
+        rows = supabase.table("enquiries").select("id").limit(BATCH).execute().data or []
+        if not rows:
+            break
+        ids = [row["id"] for row in rows]
+        supabase.table("enquiries").delete().in_("id", ids).execute()
+        total += len(ids)
+    print_success(f"public.enquiries: wiped {total} enquiry(s)")
+
+
+def wipe_vehicle_photos(supabase) -> None:
+    print_info(f"Removing objects from {VEHICLE_PHOTOS_BUCKET}")
+    bucket = supabase.storage.from_(VEHICLE_PHOTOS_BUCKET)
+    try:
+        listed = bucket.list() or []
+        names = [item["name"] for item in listed if item.get("name")]
+        if names:
+            bucket.remove(names)
+            print_success(f"{VEHICLE_PHOTOS_BUCKET}: removed {len(names)} object(s)")
+        else:
+            print_info(f"{VEHICLE_PHOTOS_BUCKET}: already empty")
+    except Exception as exc:
+        print_info(f"{VEHICLE_PHOTOS_BUCKET}: {exc} (bucket may already be empty)")
+
+    total = 0
+    while True:
+        rows = supabase.table("vehicle_photos").select("id").limit(BATCH).execute().data or []
+        if not rows:
+            break
+        ids = [row["id"] for row in rows]
+        supabase.table("vehicle_photos").delete().in_("id", ids).execute()
+        total += len(ids)
+    print_success(f"public.vehicle_photos: wiped {total} row(s)")
+
+
 def wipe_seed_assets(supabase) -> None:
     print_info(f"Removing {LOGIN_PHOTO_OBJECT} from {SEED_ASSETS_BUCKET}")
     try:
@@ -82,12 +121,19 @@ def wipe_seed_assets(supabase) -> None:
 
 def make_steps(supabase):
     return (
+        ("enquiries", lambda: wipe_enquiries(supabase)),
+        ("vehicle_photos", lambda: wipe_vehicle_photos(supabase)),
         ("users", lambda: wipe_users(supabase)),
         ("seed_assets", lambda: wipe_seed_assets(supabase)),
     )
 
 
 TABLE_ALIASES = {
+    "enquiries": "enquiries",
+    "public.enquiries": "enquiries",
+    "vehicle_photos": "vehicle_photos",
+    "public.vehicle_photos": "vehicle_photos",
+    "storage.vehicle_photos": "vehicle_photos",
     "users": "users",
     "public.users": "users",
     "seed_assets": "seed_assets",

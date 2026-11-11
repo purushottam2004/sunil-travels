@@ -4,7 +4,15 @@ Tracked Playwright specs under `tests/`. How to run them: [README.md](./README.m
 
 Recorder specs live in gitignored `video_test/` folders and are not listed here.
 
-## Shared (`--project=web` or `--project=web2`)
+## `web` — Sunil Travels
+
+`apps/web` is the public catalog. These specs do not sign in and do not call the FastAPI backend. Fleet and vehicle tests need local Supabase with the catalog seed (`supabase/seeds/001_sunil_travels.sql` or `python_seeds/_003_seed_vehicles.py`).
+
+| File | What it covers |
+| --- | --- |
+| [`tests/catalog.spec.ts`](./tests/catalog.spec.ts) | Hire choice, schedule check, self-drive list, airport list without the self-drive-only car, callback phone, a saved guest enquiry, about and contact. |
+
+## `web2` — template shell
 
 Credentials: [`tests/helpers/auth.ts`](./tests/helpers/auth.ts) (defaults match `supabase/python_seeds/data/_001_data_users.py`).
 

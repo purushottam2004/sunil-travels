@@ -11,8 +11,8 @@ Stack setup: [../supabase/SETUP_GUIDE.md](../supabase/SETUP_GUIDE.md) · [../bac
 
 | Project | App | Port | Specs |
 | --- | --- | --- | --- |
-| `web` | `frontend/apps/web` | `5173` | `tests/smoke.spec.ts`, `tests/login.spec.ts`, `tests/hello.spec.ts` |
-| `web2` | `frontend/apps/web2` | `5174` | same shared specs |
+| `web` | `frontend/apps/web` | `5173` | `tests/catalog.spec.ts` |
+| `web2` | `frontend/apps/web2` | `5174` | `tests/smoke.spec.ts`, `tests/login.spec.ts`, `tests/hello.spec.ts` |
 
 ## Prerequisites
 
@@ -27,7 +27,7 @@ Start these yourself before running tests:
 
 2. **Backend** on `:8080`  
    From `backend/`, e.g. `python main.py`, uvicorn, or `docker compose up`.  
-   Needed for `hello.spec.ts`. See [backend/SETUP_GUIDE.md](../backend/SETUP_GUIDE.md).
+   Needed for `web2`'s `hello.spec.ts` only. `catalog.spec.ts` does not call the backend.
 
 Playwright will **build + preview** `web` (`5173`) and `web2` (`5174`) automatically. If those servers are already up, they are reused (outside CI). `frontend/.env` must be filled so the preview build gets `VITE_SUPABASE_*` and `VITE_BACKEND_URL`.
 

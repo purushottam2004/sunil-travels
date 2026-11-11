@@ -1,0 +1,372 @@
+.sunil {
+  display: flex;
+  min-height: 100svh;
+  flex-direction: column;
+  color: #2a2440;
+  background: #f7f5f2;
+  text-align: left;
+}
+
+.sunil h1 {
+  margin: 0 0 0.4rem;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+
+.sunil-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 1.25rem;
+  background: #241b5e;
+  color: #fff;
+}
+
+.sunil-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: inherit;
+  text-decoration: none;
+}
+
+.sunil-brand strong {
+  display: block;
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.sunil-brand small {
+  display: block;
+  color: #d9d3f2;
+  font-size: 0.75rem;
+}
+
+.sunil-mark {
+  display: grid;
+  width: 2.4rem;
+  height: 2.4rem;
+  place-items: center;
+  border: 2px solid #fff;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+.sunil-menu {
+  display: none;
+  border: 1px solid #d9d3f2;
+  border-radius: 999px;
+  background: transparent;
+  color: #fff;
+  padding: 0.35rem 0.8rem;
+}
+
+.sunil-nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.sunil-nav a,
+.sunil-nav-button {
+  color: #fff;
+  font-size: 0.95rem;
+  text-decoration: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.sunil-nav a.active {
+  text-decoration: underline;
+  text-underline-offset: 0.3rem;
+}
+
+.sunil-hero {
+  padding: 2.5rem 1.25rem 5.5rem;
+  background:
+    radial-gradient(circle at 90% 10%, rgba(255, 186, 120, 0.55), transparent 28%),
+    linear-gradient(160deg, #3a2a86 0%, #241b5e 55%, #8a3d2f 100%);
+  color: #fff;
+}
+
+.sunil-hero h1,
+.sunil-hero p {
+  max-width: 38rem;
+}
+
+.sunil-eyebrow {
+  margin: 0 0 0.4rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.sunil-hero .sunil-eyebrow {
+  color: #f3d7b0;
+}
+
+.hire-card,
+.sunil-panel {
+  margin: 0 auto;
+  width: min(920px, calc(100% - 2rem));
+}
+
+.hire-card {
+  position: relative;
+  z-index: 1;
+  margin-top: -3.2rem;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  border-radius: 1.25rem;
+  background: #fff;
+  box-shadow: 0 18px 40px rgba(36, 27, 94, 0.12);
+}
+
+.hire-tabs,
+.hire-kinds {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.hire-tabs label,
+.hire-kinds label,
+.handover-set label {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 0.55rem 0.9rem;
+  background: #efeaf8;
+  cursor: pointer;
+}
+
+.hire-tabs label.is-on,
+.hire-kinds label.is-on {
+  background: #241b5e;
+  color: #fff;
+}
+
+.hire-tabs input,
+.hire-kinds input,
+.handover-set input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.hire-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.hire-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  text-align: left;
+}
+
+.hire-select {
+  width: 100%;
+  border: 1px solid #d4d4d8;
+  border-radius: 0.5rem;
+  padding: 0.55rem 0.75rem;
+  font: inherit;
+  background: #fff;
+}
+
+.hire-error {
+  color: #b91c1c;
+}
+
+.sunil-panel {
+  padding: 2rem 0 3rem;
+}
+
+.sunil-summary,
+.vehicle-rate {
+  color: #241b5e;
+}
+
+.vehicle-rate {
+  font-size: 1.4rem;
+  font-weight: 650;
+}
+
+.vehicle-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.vehicle-card {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 1rem;
+  background: #fff;
+  color: inherit;
+  text-decoration: none;
+  box-shadow: 0 8px 24px rgba(36, 27, 94, 0.08);
+}
+
+.vehicle-card img,
+.vehicle-fallback,
+.vehicle-hero {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  background: #241b5e;
+  color: #fff;
+}
+
+.vehicle-fallback {
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  text-align: center;
+}
+
+.vehicle-card-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 0.9rem 1rem 1.1rem;
+}
+
+.vehicle-detail .vehicle-hero {
+  border-radius: 1rem;
+  margin: 1rem 0;
+}
+
+.vehicle-thumbs {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0 0 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+.vehicle-thumbs img {
+  width: 5rem;
+  height: 3.2rem;
+  object-fit: cover;
+  border-radius: 0.4rem;
+}
+
+.vehicle-thumbs button {
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.sunil-action {
+  display: inline-flex;
+  border-radius: 999px;
+  background: #241b5e;
+  color: #fff;
+  padding: 0.7rem 1.1rem;
+  text-decoration: none;
+}
+
+.enquiry-form,
+.sign-in {
+  display: flex;
+  max-width: 28rem;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.handover-set {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.enquiry-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.enquiry-list li,
+.sunil-note {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  border-radius: 0.8rem;
+  background: #fff;
+  padding: 0.9rem 1rem;
+}
+
+.sunil-footer {
+  margin-top: auto;
+  padding: 1.5rem 1.25rem 2rem;
+  background: #1a143f;
+  color: #efeaf8;
+}
+
+.sunil-footer a {
+  color: #fff;
+}
+
+@media (max-width: 800px) {
+  .sunil-menu {
+    display: inline-flex;
+  }
+
+  .sunil-nav {
+    display: none;
+    position: absolute;
+    top: 4.2rem;
+    right: 0.8rem;
+    left: 0.8rem;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.8rem;
+    border-radius: 0.8rem;
+    background: #1a143f;
+  }
+
+  .sunil-nav.is-open {
+    display: flex;
+  }
+
+  .sunil-header {
+    position: relative;
+  }
+
+  .hire-grid,
+  .vehicle-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 801px) and (max-width: 1100px) {
+  .vehicle-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

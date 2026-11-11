@@ -41,7 +41,7 @@ def test_main_rejects_all_and_table_name_together(monkeypatch):
 
 def test_make_steps_includes_users_and_seed_assets():
     names = [name for name, _fn in unseed.make_steps(MagicMock())]
-    assert names == ["users", "seed_assets"]
+    assert names == ["enquiries", "vehicle_photos", "users", "seed_assets"]
 
 
 def test_resolve_table_name_seed_assets():

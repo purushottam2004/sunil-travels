@@ -60,7 +60,7 @@ pnpm type-check
 pnpm format
 ```
 
-Google and phone sign-in use Supabase Auth in the browser (no extra Vite keys). Enable `[auth.external.google]` and SMS in [`../supabase/config.toml`](../supabase/config.toml) when you want those providers; they stay disabled by default.
+Google and phone sign-in use Supabase Auth in the browser (no extra Vite keys). Enable `[auth.external.google]` and SMS in [`../supabase/config.toml`](../supabase/config.toml) when you want those providers; they stay disabled by default. The Sunil Travels site (`apps/web`) offers Google only. Until that provider is enabled, the Sign in button cannot finish.
 
 After a database migration, regenerate TypeScript types:
 

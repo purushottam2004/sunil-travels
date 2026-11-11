@@ -58,6 +58,165 @@ export type Database = {
         }
         Relationships: []
       }
+      business: {
+        Row: {
+          about: string
+          id: number
+          phone_display: string
+          trading_name: string
+          whatsapp_digits: string
+          yard_address: string
+          yard_label: string
+        }
+        Insert: {
+          about: string
+          id?: number
+          phone_display: string
+          trading_name: string
+          whatsapp_digits: string
+          yard_address: string
+          yard_label: string
+        }
+        Update: {
+          about?: string
+          id?: number
+          phone_display?: string
+          trading_name?: string
+          whatsapp_digits?: string
+          yard_address?: string
+          yard_label?: string
+        }
+        Relationships: []
+      }
+      vehicles: {
+        Row: {
+          blurb: string
+          day_package_inr: number | null
+          day_rate_inr: number | null
+          id: string
+          kilometre_rate_inr: number | null
+          name: string
+          sort_order: number
+          transfer_rate_inr: number | null
+        }
+        Insert: {
+          blurb?: string
+          day_package_inr?: number | null
+          day_rate_inr?: number | null
+          id?: string
+          kilometre_rate_inr?: number | null
+          name: string
+          sort_order?: number
+          transfer_rate_inr?: number | null
+        }
+        Update: {
+          blurb?: string
+          day_package_inr?: number | null
+          day_rate_inr?: number | null
+          id?: string
+          kilometre_rate_inr?: number | null
+          name?: string
+          sort_order?: number
+          transfer_rate_inr?: number | null
+        }
+        Relationships: []
+      }
+      vehicle_photos: {
+        Row: {
+          id: string
+          sort_order: number
+          storage_path: string
+          vehicle_id: string
+        }
+        Insert: {
+          id?: string
+          sort_order?: number
+          storage_path: string
+          vehicle_id: string
+        }
+        Update: {
+          id?: string
+          sort_order?: number
+          storage_path?: string
+          vehicle_id?: string
+        }
+        Relationships: []
+      }
+      enquiries: {
+        Row: {
+          airport_direction: Database['public']['Enums']['airport_direction'] | null
+          callback_phone: string
+          created_at: string
+          day_package_count: number | null
+          delivery_address: string | null
+          destination: string | null
+          handover: Database['public']['Enums']['handover'] | null
+          hire_kind: Database['public']['Enums']['hire_kind']
+          id: string
+          meetup_address: string | null
+          note: string | null
+          pickup_at: string | null
+          return_at: string | null
+          return_on: string | null
+          shown_rate_inr: number
+          shown_rate_label: string
+          start_on: string | null
+          trip_at: string | null
+          vehicle_id: string
+          vehicle_name: string
+          visitor_id: string | null
+          visitor_name: string
+        }
+        Insert: {
+          airport_direction?: Database['public']['Enums']['airport_direction'] | null
+          callback_phone: string
+          created_at?: string
+          day_package_count?: number | null
+          delivery_address?: string | null
+          destination?: string | null
+          handover?: Database['public']['Enums']['handover'] | null
+          hire_kind: Database['public']['Enums']['hire_kind']
+          id?: string
+          meetup_address?: string | null
+          note?: string | null
+          pickup_at?: string | null
+          return_at?: string | null
+          return_on?: string | null
+          shown_rate_inr: number
+          shown_rate_label: string
+          start_on?: string | null
+          trip_at?: string | null
+          vehicle_id: string
+          vehicle_name: string
+          visitor_id?: string | null
+          visitor_name: string
+        }
+        Update: {
+          airport_direction?: Database['public']['Enums']['airport_direction'] | null
+          callback_phone?: string
+          created_at?: string
+          day_package_count?: number | null
+          delivery_address?: string | null
+          destination?: string | null
+          handover?: Database['public']['Enums']['handover'] | null
+          hire_kind?: Database['public']['Enums']['hire_kind']
+          id?: string
+          meetup_address?: string | null
+          note?: string | null
+          pickup_at?: string | null
+          return_at?: string | null
+          return_on?: string | null
+          shown_rate_inr?: number
+          shown_rate_label?: string
+          start_on?: string | null
+          trip_at?: string | null
+          vehicle_id?: string
+          vehicle_name?: string
+          visitor_id?: string | null
+          visitor_name?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -66,7 +225,9 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      airport_direction: 'to_airport' | 'from_airport'
+      handover: 'collection' | 'delivery'
+      hire_kind: 'self_drive' | 'airport' | 'local' | 'outstation'
     }
     CompositeTypes: {
       [_ in never]: never
@@ -193,6 +354,10 @@ export const Constants = {
     Enums: {},
   },
   public: {
-    Enums: {},
+    Enums: {
+      airport_direction: ['to_airport', 'from_airport'],
+      handover: ['collection', 'delivery'],
+      hire_kind: ['self_drive', 'airport', 'local', 'outstation'],
+    },
   },
 } as const
