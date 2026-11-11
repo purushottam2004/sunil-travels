@@ -76,7 +76,7 @@ function SiteHeader({ name }: { name: string }) {
             Sign out
           </button>
         ) : (
-          <NavLink to="/login" onClick={() => setOpen(false)}>
+          <NavLink className="sunil-signin" to="/login" onClick={() => setOpen(false)}>
             Sign in
           </NavLink>
         )}

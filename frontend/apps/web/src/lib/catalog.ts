@@ -86,6 +86,7 @@ export async function fetchPhotos(vehicleId: string) {
 }
 
 export function photoUrl(path: string) {
+  if (path.startsWith('http://') || path.startsWith('https://')) return path
   const supabase = getSupabaseClient()
   return supabase.storage.from('vehicle_photos').getPublicUrl(path).data.publicUrl
 }

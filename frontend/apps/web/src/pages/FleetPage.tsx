@@ -7,6 +7,7 @@ import {
   vehicleRate,
   type Vehicle,
 } from '../lib/catalog'
+import { coverFor } from '../lib/covers'
 import { hireTitle, loadTrip, ratePhrase, tripSummary, type TripDraft } from '../lib/trip'
 
 export function FleetPage() {
@@ -52,12 +53,16 @@ export function FleetPage() {
 
   return (
     <section className="sunil-panel">
-      <p className="sunil-eyebrow">{hireTitle(trip.kind)}</p>
-      <h1>Cars for this hire</h1>
-      <p className="sunil-summary">{tripSummary(trip)}</p>
-      <p>
-        <Link to="/">Change the hire</Link>
-      </p>
+      <div className="trip-bar">
+        <div>
+          <p className="sunil-eyebrow">{hireTitle(trip.kind)}</p>
+          <h1>Cars for this hire</h1>
+          <p className="sunil-summary">{tripSummary(trip)}</p>
+        </div>
+        <Link className="text-link" to="/">
+          Change the hire
+        </Link>
+      </div>
       {error ? (
         <p role="alert">{error}</p>
       ) : vehicles === null ? (
@@ -93,16 +98,11 @@ function VehicleCard({
   return (
     <li>
       <Link className="vehicle-card" to={`/vehicles/${vehicle.id}`}>
-        {cover ? (
-          <img src={cover} alt="" />
-        ) : (
-          <span className="vehicle-fallback" aria-hidden="true">
-            {vehicle.name}
-          </span>
-        )}
+        <img src={coverFor(vehicle.name, cover)} alt="" />
         <span className="vehicle-card-copy">
           <strong>{vehicle.name}</strong>
-          {rate !== null ? <span>{ratePhrase(kind, rate)}</span> : null}
+          <em>{vehicle.blurb}</em>
+          {rate !== null ? <span className="vehicle-price">{ratePhrase(kind, rate)}</span> : null}
         </span>
       </Link>
     </li>

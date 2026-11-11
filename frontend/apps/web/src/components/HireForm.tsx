@@ -99,7 +99,10 @@ export function HireForm({ initial }: { initial?: TripDraft | null }) {
       </div>
 
       {mode === 'self_drive' ? (
-        <div className="hire-grid">
+        <div className="hire-grid hire-grid-3">
+          <Field label="Location" htmlFor="city">
+            <Input id="city" value="Pune" readOnly />
+          </Field>
           <Field label="Pickup" htmlFor="pickup">
             <Input
               id="pickup"
@@ -248,10 +251,14 @@ export function HireForm({ initial }: { initial?: TripDraft | null }) {
         <p className="hire-error" role="alert">
           {error}
         </p>
-      ) : null}
-      <Button type="submit" size="lg">
-        Show cars
-      </Button>
+      ) : (
+        <p className="hire-hint">Pune only. Dates do not hide a car.</p>
+      )}
+      <div className="hire-actions">
+        <Button type="submit" size="lg">
+          Show cars
+        </Button>
+      </div>
     </form>
   )
 }

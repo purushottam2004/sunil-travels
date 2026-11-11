@@ -8,6 +8,7 @@ import {
   type Vehicle,
   type VehiclePhoto,
 } from '../lib/catalog'
+import { coverFor } from '../lib/covers'
 import { hireTitle, loadTrip, rateHint, ratePhrase, tripSummary } from '../lib/trip'
 
 export function VehiclePage() {
@@ -82,39 +83,43 @@ export function VehiclePage() {
 
   return (
     <article className="sunil-panel vehicle-detail">
-      <p className="sunil-eyebrow">{hireTitle(trip.kind)}</p>
-      <h1>{vehicle.name}</h1>
-      <p className="sunil-summary">{tripSummary(trip)}</p>
-      {cover ? (
-        <img className="vehicle-hero" src={photoUrl(cover.storage_path)} alt="" />
-      ) : (
-        <div className="vehicle-fallback vehicle-hero">{vehicle.name}</div>
-      )}
-      {photos.length > 1 ? (
-        <ul className="vehicle-thumbs">
-          {photos.map((photo, index) => (
-            <li key={photo.id}>
-              <button type="button" onClick={() => setActive(index)}>
-                <img src={photoUrl(photo.storage_path)} alt="" />
-              </button>
-            </li>
-          ))}
-        </ul>
-      ) : null}
-      <p>{vehicle.blurb}</p>
-      {rate === null ? (
-        <p>This car is not offered for {hireTitle(trip.kind).toLowerCase()}.</p>
-      ) : (
-        <>
-          <p className="vehicle-rate">{ratePhrase(trip.kind, rate)}</p>
-          <p>{rateHint(trip.kind)}</p>
-          <p>
-            <Link className="sunil-action" to={`/vehicles/${vehicle.id}/enquiry`}>
-              Send an enquiry
-            </Link>
-          </p>
-        </>
-      )}
+      <div className="vehicle-layout">
+        <div>
+          <p className="sunil-eyebrow">{hireTitle(trip.kind)}</p>
+          <h1>{vehicle.name}</h1>
+          <p className="sunil-summary">{tripSummary(trip)}</p>
+          <img
+            className="vehicle-hero"
+            src={cover ? photoUrl(cover.storage_path) : coverFor(vehicle.name)}
+            alt=""
+          />
+          {photos.length > 1 ? (
+            <ul className="vehicle-thumbs">
+              {photos.map((photo, index) => (
+                <li key={photo.id}>
+                  <button type="button" onClick={() => setActive(index)}>
+                    <img src={photoUrl(photo.storage_path)} alt="" />
+                  </button>
+                </li>
+              ))}
+            </ul>
+          ) : null}
+          <p className="vehicle-blurb">{vehicle.blurb}</p>
+        </div>
+        <aside className="offer-panel">
+          {rate === null ? (
+            <p>This car is not offered for {hireTitle(trip.kind).toLowerCase()}.</p>
+          ) : (
+            <>
+              <p className="vehicle-rate">{ratePhrase(trip.kind, rate)}</p>
+              <p>{rateHint(trip.kind)}</p>
+              <Link className="sunil-action" to={`/vehicles/${vehicle.id}/enquiry`}>
+                Send an enquiry
+              </Link>
+            </>
+          )}
+        </aside>
+      </div>
     </article>
   )
 }
